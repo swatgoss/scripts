@@ -1,0 +1,10 @@
+#!/bin/bash
+
+#filename=`basename "$1"`
+filename="$1"
+
+#echo $filename
+
+#echo "${filename%.*}".mkv
+
+avconv -i "$filename" -codec copy "${filename%.*}".mkv
