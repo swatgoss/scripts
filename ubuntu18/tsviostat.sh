@@ -1,0 +1,1 @@
+export DISK="vda" ; export RAPPORT="/tmp/surveillance-STK.tsv" ; iostat -dx /dev/"$DISK" | awk -v OFS='\t' 'NR==3 {$1=$1;print "Date du jour\tHoraire donnée\t"$0}' | tee "$RAPPORT" ; iostat -dx /dev/"$DISK" 1 | awk -v OFS='\t' ' $0 ~ ENVIRON["DISK"] {now=strftime("%Y-%m-%d\t%T"); $1=$1; print now, $0; fflush(stdout)}' | tee -a "$RAPPORT"
