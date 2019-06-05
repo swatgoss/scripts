@@ -115,8 +115,8 @@ OUTPUT=${INPUT%.csv}.pdf
 
 veusz --listen <<EOF > $INPUT.log
 AddImportPath(u'C:\\Users\\Swatgoss\\Documents\\sars_dpar_vb1')
-ImportFileCSV(u'$INPUT-CPU-1.csv', dateformat=u'YYYY-MM-DD hh:mm:ss UTC', delimiter=u';', linked=True, dsprefix=u'CPU')
-ImportFileCSV(u'$INPUT-ALLRAM.csv', dateformat=u'YYYY-MM-DD hh:mm:ss UTC', delimiter=u';', linked=True, dsprefix=u'RAM')
+ImportFileCSV(u'$INPUT-CPU-1.csv', dateformat=u'YYYY-MM-DD hh:mm:ss UTC', delimiter=str(u';'), linked=True, dsprefix=u'CPU')
+ImportFileCSV(u'$INPUT-ALLRAM.csv', dateformat=u'YYYY-MM-DD hh:mm:ss UTC', delimiter=str(u';'), linked=True, dsprefix=u'RAM')
 DatasetPlugin(u'MovingAverage', {u'ds_in': u'CPU%user', u'ds_out': u'CPUmoyenne%user', u'weighterrors': True, u'width': 120})
 DatasetPlugin(u'Add Datasets', {u'ds_in': ('RAMkbmemfree', 'RAMkbmemused'), u'ds_out': u'RAMkbTOTAL'})
 DatasetPlugin(u'Add Datasets', {u'ds_in': ('RAMkbcached', 'RAMkbbuffers'), u'ds_out': u'RAMkblibres'})
