@@ -3,6 +3,7 @@ scripts
 
 generic 
 - NeroAAC codecs 1.5.1
+- xrandr-gen.sh
 - ffbench ?
 - iPXE scripts ?
 - live-iso-packager
