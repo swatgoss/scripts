@@ -1,6 +1,7 @@
 ### RetroHOST : PREREQUISITES
 
 - install/check snapd, openvswitch-switch, dnsmasq, lvm2
+	`apt install vim snapd dnsmasq lvm2`
 - get ethernet port for vswitch
 	> PERF : get block device for storage pool
 
