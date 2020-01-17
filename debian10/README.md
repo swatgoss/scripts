@@ -1,10 +1,10 @@
-#RetroHOST : PREREQUISITES
+###RetroHOST : PREREQUISITES
 
 	- install/check snapd, openvswitch-switch, dnsmasq, lvm2
 	- get ethernet port for vswitch
 		> PERF : get block device for storage pool
 
-#RetroHOST : OpenVswitch
+###RetroHOST : OpenVswitch
 
 	- create vswitch
 	
@@ -17,12 +17,12 @@
 		`ovs-vsctl add-port LXDvswitch0 enp0s8`
 		> VLAN : configure fakebridge(s)
 
-#RetroHOST : dnsmasq
+###RetroHOST : dnsmasq
 
 	- configure DHCP, DNS, TFTP, iPXE
 		> VLAN : configure DHCP, DNS, TFTP, iPXE
 
-#RetroHOST : LXD
+###RetroHOST : LXD
 
 	- create a container profile
 	
@@ -45,7 +45,7 @@
 	
 		`lxc config device add ISOBoot eth0 nic nictype=bridged parent=LXDvswitch0 host_name=ISOBoot`
 
-#container : RetroNAS
+###container : RetroNAS
 
 	- start container
 	
@@ -57,7 +57,7 @@
 	
 		`lxc exec RetroNAS -- vim /etc/samba/smb.conf`
 
-#container : iPXE-ISOBOOT
+###container : iPXE-ISOBOOT
 
 	- install nginx
 	- configure http ISO hosting
