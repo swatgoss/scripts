@@ -1,11 +1,13 @@
 RetroHOST : PREREQUISITES
 =
+
 	- install/check snapd, openvswitch-switch, dnsmasq, lvm2
 	- get ethernet port for vswitch
 		> PERF : get block device for storage pool
 
 RetroHOST : OpenVswitch
 =
+
 	- create vswitch
 	
 		`ovs-vsctl add-br LXDvswitch0`
@@ -19,11 +21,13 @@ RetroHOST : OpenVswitch
 
 RetroHOST : dnsmasq
 =
+
 	- configure DHCP, DNS, TFTP, iPXE
 		> VLAN : configure DHCP, DNS, TFTP, iPXE
 
 RetroHOST : LXD
 =
+
 	- create a container profile
 	
 		`lxc profile create conteneurs`
@@ -47,6 +51,7 @@ RetroHOST : LXD
 
 container : RetroNAS
 =
+
 	- start container
 	
 		`lxc start RetroNAS`
@@ -59,5 +64,6 @@ container : RetroNAS
 
 container : iPXE-ISOBOOT
 =
+
 	- install nginx
 	- configure http ISO hosting
