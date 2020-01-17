@@ -1,8 +1,10 @@
 ### RetroHOST : PREREQUISITES
 
 - install/check snapd, openvswitch-switch, dnsmasq, lvm2
+
 	`apt install vim snapd dnsmasq lvm2`
 - get ethernet port for vswitch
+
 	> PERF : get block device for storage pool
 
 ### RetroHOST : OpenVswitch
@@ -16,11 +18,13 @@
 - add ethernet port to vswitch
 	
 	`ovs-vsctl add-port LXDvswitch0 enp0s8`
+	
 	> VLAN : configure fakebridge(s)
 
 ### RetroHOST : dnsmasq
 
 - configure DHCP, DNS, TFTP, iPXE
+
 	> VLAN : configure DHCP, DNS, TFTP, iPXE
 
 ### RetroHOST : LXD
@@ -28,6 +32,7 @@
 - create a container profile
 	
 	`lxc profile create conteneurs`
+	
 	> PERF : attach profile to dedicated storage pool
 		
 	`lxc profile device add conteneurs root disk path=/ pool=LXDstoragepool0`
