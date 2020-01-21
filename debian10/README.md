@@ -25,7 +25,7 @@
 
 - configure DHCP, DNS, TFTP, iPXE
 
-	> VLAN : configure DHCP, DNS, TFTP, iPXE
+	> VLAN : configure DHCP, DNS, TFTP, iPXE for each VLAN
 
 ### RetroHOST : LXD
 
@@ -61,7 +61,27 @@
 	`lxc exec RetroNAS -- apt install -y samba`
 - configure unsecure anonymous writable public share
 	
+	`lxc exec RetroNAS -- mkdir /share/public`
 	`lxc exec RetroNAS -- vim /etc/samba/smb.conf`
+
+- under [global] section :
+```
+		lanman auth = Yes
+		client lanman auth = Yes
+		client plaintext auth = Yes
+		write cache size = 16777216
+```
+- right at the end of smb.conf
+```
+	[public]
+		comment = PUBLIC
+		path = /share/public/
+		browsable = yes
+		create mask = 0660
+		directory mask = 0775
+		writable = yes
+		guest ok = yes
+```
 
 ### container : iPXE-ISOBOOT
 
