@@ -151,7 +151,7 @@ goto start
 :quake20
 cd marks
 cd quakes
-quake.exe +timedemo demo1 +exec mode18.cfg -nosound -nocdaudio
+quake.exe +timedemo demo1 +exec mode20.cfg -nosound -nocdaudio
 cd..
 cd..
 goto start
