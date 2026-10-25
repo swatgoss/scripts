@@ -13,8 +13,8 @@ $qemuUrl = "https://github.com/fdcastel/qemu-img-windows-x64/releases/download/v
 
 # --- Main Window Creation ---
 $form = New-Object System.Windows.Forms.Form
-$form.Text = "RAW to VHDX Converter (Optimized)"
-$form.Size = New-Object System.Drawing.Size(650, 480)
+$form.Text = "RAW to VHDX Converter"
+$form.Size = New-Object System.Drawing.Size(650, 560)
 $form.StartPosition = "CenterScreen"
 $form.FormBorderStyle = 'FixedDialog'
 $form.MaximizeBox = $false
@@ -51,34 +51,70 @@ $btnInput.Size = New-Object System.Drawing.Size(80, 22)
 $btnInput.Text = "Browse..."
 $form.Controls.Add($btnInput)
 
+# --- Info Note (Clickable Link) ---
+$lblInfo = New-Object System.Windows.Forms.Label
+$lblInfo.Location = New-Object System.Drawing.Point(20, 115)
+$lblInfo.Text = "Note: .img files can be produced using"
+$lblInfo.Size = New-Object System.Drawing.Size(225, 15)
+$lblInfo.ForeColor = [System.Drawing.Color]::DimGray
+$form.Controls.Add($lblInfo)
+
+$lnkInfo = New-Object System.Windows.Forms.LinkLabel
+$lnkInfo.Location = New-Object System.Drawing.Point(245, 115)
+$lnkInfo.Text = "https://win32diskimager.org/"
+$lnkInfo.Size = New-Object System.Drawing.Size(250, 15)
+$lnkInfo.Add_LinkClicked({
+    [System.Diagnostics.Process]::Start("https://win32diskimager.org/") | Out-Null
+})
+$form.Controls.Add($lnkInfo)
+
+# --- Output Folder Selection ---
+$lblOutputDir = New-Object System.Windows.Forms.Label
+$lblOutputDir.Location = New-Object System.Drawing.Point(20, 140)
+$lblOutputDir.Text = "Output Folder (Optional, for batching):"
+$lblOutputDir.Size = New-Object System.Drawing.Size(250, 20)
+$form.Controls.Add($lblOutputDir)
+
+$txtOutputDir = New-Object System.Windows.Forms.TextBox
+$txtOutputDir.Location = New-Object System.Drawing.Point(20, 160)
+$txtOutputDir.Size = New-Object System.Drawing.Size(500, 20)
+$txtOutputDir.ReadOnly = $true
+$form.Controls.Add($txtOutputDir)
+
+$btnOutputDir = New-Object System.Windows.Forms.Button
+$btnOutputDir.Location = New-Object System.Drawing.Point(530, 159)
+$btnOutputDir.Size = New-Object System.Drawing.Size(80, 22)
+$btnOutputDir.Text = "Select..."
+$form.Controls.Add($btnOutputDir)
+
 # --- Destination File Selection (VHDX) ---
 $lblOutput = New-Object System.Windows.Forms.Label
-$lblOutput.Location = New-Object System.Drawing.Point(20, 130)
+$lblOutput.Location = New-Object System.Drawing.Point(20, 200)
 $lblOutput.Text = "Destination File (VHDX):"
 $lblOutput.Size = New-Object System.Drawing.Size(250, 20)
 $form.Controls.Add($lblOutput)
 
 $txtOutput = New-Object System.Windows.Forms.TextBox
-$txtOutput.Location = New-Object System.Drawing.Point(20, 150)
+$txtOutput.Location = New-Object System.Drawing.Point(20, 220)
 $txtOutput.Size = New-Object System.Drawing.Size(500, 20)
 $txtOutput.ReadOnly = $true
 $form.Controls.Add($txtOutput)
 
 $btnOutput = New-Object System.Windows.Forms.Button
-$btnOutput.Location = New-Object System.Drawing.Point(530, 149)
+$btnOutput.Location = New-Object System.Drawing.Point(530, 219)
 $btnOutput.Size = New-Object System.Drawing.Size(80, 22)
 $btnOutput.Text = "Browse..."
 $form.Controls.Add($btnOutput)
 
 # --- Advanced Options ---
 $lblSubformat = New-Object System.Windows.Forms.Label
-$lblSubformat.Location = New-Object System.Drawing.Point(20, 190)
+$lblSubformat.Location = New-Object System.Drawing.Point(20, 260)
 $lblSubformat.Text = "VHDX Format:"
 $lblSubformat.Size = New-Object System.Drawing.Size(100, 20)
 $form.Controls.Add($lblSubformat)
 
 $cmbSubformat = New-Object System.Windows.Forms.ComboBox
-$cmbSubformat.Location = New-Object System.Drawing.Point(120, 187)
+$cmbSubformat.Location = New-Object System.Drawing.Point(120, 257)
 $cmbSubformat.Size = New-Object System.Drawing.Size(100, 20)
 $cmbSubformat.DropDownStyle = [System.Windows.Forms.ComboBoxStyle]::DropDownList
 $cmbSubformat.Items.Add("dynamic") | Out-Null
@@ -87,26 +123,26 @@ $cmbSubformat.SelectedIndex = 0
 $form.Controls.Add($cmbSubformat)
 
 $lblAdvanced = New-Object System.Windows.Forms.Label
-$lblAdvanced.Location = New-Object System.Drawing.Point(240, 190)
+$lblAdvanced.Location = New-Object System.Drawing.Point(240, 260)
 $lblAdvanced.Text = "Advanced Arguments:"
 $lblAdvanced.Size = New-Object System.Drawing.Size(120, 20)
 $form.Controls.Add($lblAdvanced)
 
 $txtAdvanced = New-Object System.Windows.Forms.TextBox
-$txtAdvanced.Location = New-Object System.Drawing.Point(360, 187)
+$txtAdvanced.Location = New-Object System.Drawing.Point(360, 257)
 $txtAdvanced.Size = New-Object System.Drawing.Size(250, 20)
 $txtAdvanced.Text = "-W -m 16"
 $form.Controls.Add($txtAdvanced)
 
 # --- Command Preview ---
 $lblCommand = New-Object System.Windows.Forms.Label
-$lblCommand.Location = New-Object System.Drawing.Point(20, 230)
+$lblCommand.Location = New-Object System.Drawing.Point(20, 300)
 $lblCommand.Text = "Command Preview:"
 $lblCommand.Size = New-Object System.Drawing.Size(250, 20)
 $form.Controls.Add($lblCommand)
 
 $txtCommandPreview = New-Object System.Windows.Forms.TextBox
-$txtCommandPreview.Location = New-Object System.Drawing.Point(20, 250)
+$txtCommandPreview.Location = New-Object System.Drawing.Point(20, 320)
 $txtCommandPreview.Size = New-Object System.Drawing.Size(590, 20)
 $txtCommandPreview.ReadOnly = $true
 $txtCommandPreview.BackColor = [System.Drawing.Color]::White
@@ -114,19 +150,19 @@ $form.Controls.Add($txtCommandPreview)
 
 # --- Progress Bar ---
 $progressBar = New-Object System.Windows.Forms.ProgressBar
-$progressBar.Location = New-Object System.Drawing.Point(20, 290)
+$progressBar.Location = New-Object System.Drawing.Point(20, 360)
 $progressBar.Size = New-Object System.Drawing.Size(590, 30)
 $form.Controls.Add($progressBar)
 
 $lblProgress = New-Object System.Windows.Forms.Label
-$lblProgress.Location = New-Object System.Drawing.Point(20, 325)
+$lblProgress.Location = New-Object System.Drawing.Point(20, 395)
 $lblProgress.Size = New-Object System.Drawing.Size(590, 20)
 $lblProgress.Text = "Ready."
 $form.Controls.Add($lblProgress)
 
 # --- Convert Button ---
 $btnConvert = New-Object System.Windows.Forms.Button
-$btnConvert.Location = New-Object System.Drawing.Point(235, 360)
+$btnConvert.Location = New-Object System.Drawing.Point(235, 430)
 $btnConvert.Size = New-Object System.Drawing.Size(180, 40)
 $btnConvert.Text = "Start Conversion"
 $btnConvert.Font = New-Object System.Drawing.Font("Segoe UI", 10, [System.Drawing.FontStyle]::Bold)
@@ -195,9 +231,34 @@ $btnInput.Add_Click({
     $dialog.Filter = "RAW files (*.raw;*.img;*.dd)|*.raw;*.img;*.dd|All files (*.*)|*.*"
     if ($dialog.ShowDialog() -eq [System.Windows.Forms.DialogResult]::OK) {
         $txtInput.Text = $dialog.FileName
-        # Auto-fill output path with .vhdx extension
-        $txtOutput.Text = [System.IO.Path]::ChangeExtension($dialog.FileName, ".vhdx")
+        
+        # Auto-fill output path
+        $fileNameWithoutExt = [System.IO.Path]::GetFileNameWithoutExtension($dialog.FileName)
+        if ($txtOutputDir.Text -ne "") {
+            # Use selected output folder
+            $txtOutput.Text = Join-Path $txtOutputDir.Text "$fileNameWithoutExt.vhdx"
+        } else {
+            # Use source file folder
+            $txtOutput.Text = [System.IO.Path]::ChangeExtension($dialog.FileName, ".vhdx")
+        }
         Update-QemuStatus
+    }
+})
+
+$btnOutputDir.Add_Click({
+    $dialog = New-Object System.Windows.Forms.FolderBrowserDialog
+    $dialog.Description = "Select Output Folder for converted files"
+    $dialog.ShowNewFolderButton = $true
+    
+    if ($dialog.ShowDialog() -eq [System.Windows.Forms.DialogResult]::OK) {
+        $txtOutputDir.Text = $dialog.SelectedPath
+        
+        # Update destination path dynamically if source is already selected
+        if ($txtInput.Text -ne "") {
+            $fileNameWithoutExt = [System.IO.Path]::GetFileNameWithoutExtension($txtInput.Text)
+            $txtOutput.Text = Join-Path $txtOutputDir.Text "$fileNameWithoutExt.vhdx"
+            Update-QemuStatus
+        }
     }
 })
 
@@ -221,6 +282,7 @@ $btnOutput.Add_Click({
 $btnConvert.Add_Click({
     $btnConvert.Enabled = $false
     $btnInput.Enabled = $false
+    $btnOutputDir.Enabled = $false
     $btnOutput.Enabled = $false
     $txtAdvanced.Enabled = $false
     $cmbSubformat.Enabled = $false
@@ -304,6 +366,7 @@ $btnConvert.Add_Click({
     $progressBar.Value = 100
     $btnConvert.Enabled = $true
     $btnInput.Enabled = $true
+    $btnOutputDir.Enabled = $true
     $btnOutput.Enabled = $true
     $txtAdvanced.Enabled = $true
     $cmbSubformat.Enabled = $true
