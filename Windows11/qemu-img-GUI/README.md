@@ -4,6 +4,8 @@ A lightweight, optimized PowerShell Graphical User Interface (GUI) for `qemu-img
 
 Perfect for converting physical disk backups created with tools like [Win32 Disk Imager](https://win32diskimager.org/) or [HDD Raw Copy Tool](https://hddguru.com/software/HDD-Raw-Copy-Tool/) or ddrescue.
 
+
+
 ![RAW to VHDX Converter Screenshot](qemu-img-GUI.png)
 
 ## Features
@@ -27,3 +29,4 @@ Perfect for converting physical disk backups created with tools like [Win32 Disk
 
 * Windows 10 / 11
 * PowerShell 5.1+ (Built into Windows)
+* https://github.com/fdcastel/qemu-img-windows-x64/releases/download/v10.0.0/qemu-img-windows-x64-v10.0.0.zip
