@@ -4,7 +4,7 @@ A lightweight, optimized PowerShell Graphical User Interface (GUI) for `qemu-img
 
 Perfect for converting physical disk backups created with tools like [Win32 Disk Imager](https://win32diskimager.org/).
 
-![RAW to VHDX Converter Screenshot](image_f87f3a.png)
+![RAW to VHDX Converter Screenshot](qemu-img-GUI.png)
 
 ## Features
 
